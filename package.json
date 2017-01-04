@@ -1,0 +1,29 @@
+{
+  "name": "geo-tweets",
+  "version": "1.0.0",
+  "description": "Find nearby tweets",
+  "main": "app.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mayank/geo-tweets.git"
+  },
+  "keywords": [
+    "twitter"
+  ],
+  "author": "Mayank",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mayank/geo-tweets/issues"
+  },
+  "homepage": "https://github.com/mayank/geo-tweets#readme",
+  "dependencies": {
+    "angular": "^1.6.1",
+    "angular-google-maps": "^2.4.0",
+    "components-bootstrap": "^3.3.7",
+    "googlemaps": "^1.12.0",
+    "node-twitter-api": "^1.8.0"
+  }
+}
