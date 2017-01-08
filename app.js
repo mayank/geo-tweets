@@ -3,7 +3,7 @@ var io = require('socket.io')
 var twitter = require('./api/twitter')
 
 var app = express()
-var markerTimeout = 7200
+var markerTimeout = 2*60*1000
 
 app.use(express.static('public/'))
 app.set('views', './views')
@@ -11,7 +11,6 @@ app.set('view engine', 'jade')
 
 app.get('/', function (req, res) {
   res.render('app')
-  console.log(process.env)
 })
 
 var server = app.listen(process.env.PORT || 5000)

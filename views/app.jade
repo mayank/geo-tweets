@@ -4,8 +4,10 @@ html
 		link(rel='stylesheet', href='/css/bootstrap.min.css')
 		link(rel='stylesheet', href='/css/style.css')
 
+		script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js')
 		script(src='/socket.io/socket.io.js')
 		script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBxx874USyNwfXmkwd5OcpWwFxhrMhMLXw')
+		script(src='/js/map-theme.js')
 		script(src='/js/app.js')
 	body
 		.container
@@ -17,7 +19,7 @@ html
 					.h4 Search for your favourite tweets
 					.form.form-horizontal
 						.form-group
-							input.form-control(type='text')
+							input.form-control#search(type='text')
 					small.text-info Note: Only 1 query per minute is permissible
 				.col-md-4
 					h1

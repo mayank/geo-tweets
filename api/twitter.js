@@ -13,7 +13,7 @@ exports.getTweetsByLocation = function(geo, callback, query){
 		lang: 'en',
 		count: 100
 	},
-	null, 
+	null,
 	null,
 	function(error, data){
 		if(error){ console.log(error); return; }
