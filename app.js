@@ -1,10 +1,7 @@
 var express = require('express')
-var app = express();
-var port = 8080;
+var app = express()
+var port = 8080
 
-app.get('/', function(req, res){
-	res.send('OK');
-})
+app.use(express.static('html'))
 
-
-app.listen(port);
+app.listen(process.env.PORT || 5000)
