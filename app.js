@@ -1,7 +1,41 @@
 var express = require('express')
+var io = require('socket.io')
+var twitter = require('./api/twitter')
+
 var app = express()
-var port = 8080
+var markerTimeout = 7200
 
-app.use(express.static('html'))
+app.use(express.static('public/'))
+app.set('views', './views')
+app.set('view engine', 'jade')
 
-app.listen(process.env.PORT || 5000)
+app.get('/', function (req, res) {
+  res.render('app')
+})
+
+var server = app.listen(process.env.PORT || 5000)
+var socket = io.listen(server)
+
+
+var getTweets = function(data){
+	twitter.getTweetsByLocation(data, function(tweets){
+		tweets.forEach(function(elem){
+			if(elem.geo != null){
+				let latitude = elem.geo.coordinates[0];
+				let longitude = elem.geo.coordinates[1];
+				socket.emit('mark', {
+					tweet: elem.text,
+					coords: {lat: latitude, lng: longitude},
+					dp: elem.user.profile_image_url_https
+				});
+			}
+		})
+		setTimeout(function(){ getTweets(data) }, markerTimeout);
+	});
+}
+
+socket.on('connection', function(user){
+	user.on('register', function(data){
+		getTweets(data);
+	})
+})
