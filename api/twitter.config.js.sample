@@ -1,11 +1,12 @@
 const twitter = {
 	tokens: {
-		accessToken: '<your_access_token>',
+		accessToken: '<access_token>',
 		secretToken:'<secret_token>'
 	},
 	keys: {
 		consumerKey: '<key>',
-		consumerSecret: '<secret>'
+		consumerSecret: '<secret>',
+		callback: '<callback_url>'
 	}
 }
 
