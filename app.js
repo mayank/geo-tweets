@@ -11,7 +11,6 @@ app.set('view engine', 'jade')
 
 app.get('/', function (req, res) {
   res.render('app')
-  console.log(process.env)
 })
 
 var server = app.listen(process.env.PORT || 5000)
