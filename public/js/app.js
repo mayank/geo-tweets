@@ -6,6 +6,10 @@ var _coords = {};
 var _query = '';
 var _markerMap = [];
 var _moverTimeout = 0;
+var infoWindow = new google.maps.InfoWindow({
+	content: '',
+	maxWidth: 250
+});
 
 // map initialization
 function initMap(){
@@ -38,14 +42,27 @@ function onMapChanged(){
 };
 
 // insert marker to map
-function insertMarkerToMap() {
-	var marker = new google.maps.Marker({
+function insertMarkerToMap(status) {
+	return new google.maps.Marker({
 	    position: status.coords,
-	    title: status.tweet,
-	    icon: '/img/icon.gif'
+	    icon: '/img/icon.gif',
+	    map: map
+	});	
+}
+
+// adds popup to marker
+function addInfoWindowToMarker(status, marker) {
+	google.maps.event.addListener(marker, 'click', function(){
+		infoWindow.setContent('<div class="row-fluid clearfix">' +
+			'<div class="col-xs-2">' +
+				'<img class="img-circle" src="'+status.dp+'">' +
+			'</div>' +
+			'<div class="col-xs-10">' +
+				status.tweet +
+			'</div>' +
+		'</div>');
+		infoWindow.open(map, this);
 	});
-	marker.setMap(map);
-	return marker;	
 }
 
 // remove marker after some time
@@ -55,16 +72,17 @@ function setTimeoutToMarker(marker) {
 	
 	setTimeout(function(){ 
 		marker.setMap(null); 
-		delete delete _markerMap.marker.uid;
+		delete _markerMap.marker.uid;
 		delete marker;  
 	}, markerTimeout);
 }
 
 // recieve data on server push
 socket.on('mark', function(status){
-	$('#search').removeAttr('disabled')
+	$('#search').removeAttr('disabled');
 	
-	var marker = insertMarkerToMap();
+	var marker = insertMarkerToMap(status);
+	addInfoWindowToMarker(status, marker);
 	setTimeoutToMarker(marker);
 });
 
@@ -96,8 +114,8 @@ $(document).ready(function(){
 	// get location via HTML5 API
 	navigator.geolocation.getCurrentPosition(function(pos){
 		_coords = {lat: pos.coords.latitude, lng: pos.coords.longitude, query: _query};
-		socket.emit('register', _coords)
-		initMap()
+		socket.emit('register', _coords);
+		initMap();
 	});
 
 	enableSearch();
