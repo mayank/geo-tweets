@@ -54,10 +54,10 @@ function insertMarkerToMap(status) {
 function addInfoWindowToMarker(status, marker) {
 	google.maps.event.addListener(marker, 'click', function(){
 		infoWindow.setContent('<div class="row-fluid clearfix">' +
-			'<div class="col-xs-2">' +
+			'<div class="col-xs-3 text-right">' +
 				'<img class="img-circle" src="'+status.dp+'">' +
 			'</div>' +
-			'<div class="col-xs-10">' +
+			'<div class="col-xs-9">' +
 				status.tweet +
 			'</div>' +
 		'</div>');
