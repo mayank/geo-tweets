@@ -4,23 +4,18 @@ var config = require('./twitter.config')
 
 var twitter = twitterAPI(config.keys);
 
-exports.getTweetsByLocation = function(geo, callback, query){
+exports.getTweetsByLocation = function(params, callback){
 	var status = [];
+
 	twitter.search({ 
-		q: query || '',
-		geocode: geo.lat+','+geo.lng+',1mi',
+		q: params.query || '',
+		geocode: params.lat+','+params.lng+',1mi',
 		type: 'recent',
 		lang: 'en',
 		count: 100
-	},
-	null,
-	null,
+	}, null, null, // accessToken & requestToken not required
 	function(error, data){
 		if(error){ console.log(error); return; }
-		
-		for(var i=0;i<data.statuses.length;i++){
-			status.push(data.statuses[i]);
-		}
-		callback(status)
+		callback(data.statuses);
 	});
-}
+};
