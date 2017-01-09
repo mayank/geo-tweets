@@ -72,7 +72,7 @@ function setTimeoutToMarker(marker) {
 	
 	setTimeout(function(){ 
 		marker.setMap(null); 
-		delete _markerMap.marker.uid;
+		delete _markerMap[marker.uid];
 		delete marker;  
 	}, markerTimeout);
 }
