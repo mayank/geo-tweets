@@ -18,7 +18,7 @@ var socket = io.listen(server)
 
 
 var getTweets = function(data){
-
+	console.log(data);
 	twitter.getTweetsByLocation(data, function(tweets){
 	
 		tweets.forEach(function(elem){
@@ -43,7 +43,9 @@ var getTweets = function(data){
 
 // send data each time user connects
 socket.on('connection', function(user){
+	console.log('user connected');
 	user.on('register', function(data){
 		getTweets(data);
 	})
 })
+
